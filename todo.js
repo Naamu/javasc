@@ -5,25 +5,64 @@ const toDoList = document.querySelector(".js-toDoList");
 const TODOS_LS = "toDos";
 //todos_ls 로컬 스토리지
 
+const toDos = [];
+
+
+function delToDo(event){
+    console.dir(event.target);
+
+}
+
+
+function saveToDos (){
+    localStorage.setItem(TODOS_LS, JSON.stringify( toDos));
+}
+
+
+
 function paintToDo(text){
-    console.log(text);
+    const li = document.createElement("li");
+    const delBtn = document.createElement("button");
+    const span = document.createElement("span");    
+    const newId = toDos.length + 1;
+    delBtn.innerText = "X";
+    delBtn.addEventListener("click",delToDo);
+    span.innerText = text;
+    li.appendChild(span);
+    li.appendChild(delBtn);
+    li.id = newId;
+    toDoList.appendChild(li);
+    const toDoObj = {
+        text: text,
+        id: newId,
+    };
+    toDos.push(toDoObj);
+    saveToDos()    
     }
 
 function handleSubmit(event){
     event.preventDefault();
     const currentValue = toDoinput.value;
     paintToDo(currentValue);
+    toDoinput.value = "";
 }
 
-function loadToDo(){
-    const toDos = localStorage.getItem(TODOS_LS);
-    if(toDos !== null){
-    toDoform.addEventListener("submit", handleSubmit);
+
+
+function loadtoDos(){
+    const loadedtoDos = localStorage.getItem(TODOS_LS);
+    if(loadedtoDos !== null){
+        const parsedToDos = JSON.parse(loadedtoDos);
+        parsedToDos.forEach(function(toDo){
+            paintToDo(toDo.text);
+        });            
+        };
+        
     }
-}
 
 function init(){
-    loadToDo();
+    loadtoDos();
+    toDoform.addEventListener("submit", handleSubmit);
     
 }
 init();
