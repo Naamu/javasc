@@ -22,12 +22,9 @@ function delToDo(event){
     saveToDos()
 }
 
-
 function saveToDos(){
     localStorage.setItem(TODOS_LS, JSON.stringify( toDos));
 }
-
-
 
 function paintToDo(text){
     const li = document.createElement("li");
