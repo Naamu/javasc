@@ -5,16 +5,25 @@ const toDoList = document.querySelector(".js-toDoList");
 const TODOS_LS = "toDos";
 //todos_ls 로컬 스토리지
 
-const toDos = [];
+let toDos = [];
+// const 인경우 삭제한 어레이로 교체할 수 없기에 let으로 수정함.
+
 
 
 function delToDo(event){
-    console.dir(event.target);
-
+    console.log(event.target.parentNode);
+    const btn = event.target;
+    const li = btn.parentNode;
+    toDoList.removeChild(li);
+    const cleanToDos = toDos.filter(function(toDo){        
+        return toDo.id !== parseInt(li.id);        
+    });
+    toDos = cleanToDos;
+    saveToDos()
 }
 
 
-function saveToDos (){
+function saveToDos(){
     localStorage.setItem(TODOS_LS, JSON.stringify( toDos));
 }
 
