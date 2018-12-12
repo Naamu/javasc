@@ -1,0 +1,25 @@
+body{
+    background-color: skyblue;
+  }
+
+  .btn{
+      cursor: pointer;
+  }
+  
+  body{
+    color : rgba(236, 106, 0, 0.521);
+    transition: color 1s ease-in-out;
+  }
+  
+  .clicked{
+      color : rgb(123, 239, 178);
+  }
+
+  .form,
+  .greetings{
+      display: none;
+  }
+
+  .showing{
+      display:block;
+  }
